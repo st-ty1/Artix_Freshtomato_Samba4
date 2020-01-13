@@ -1,0 +1,97 @@
+--- Makefile_RT-AC	2020-01-06 18:45:23.980703000 +0100
++++ Makefile_RT-AC_samba4	2020-01-06 18:57:36.477399334 +0100
+@@ -38,7 +38,7 @@
+ #
+ #
+ SEP=`$(eval progress=$(shell echo $$(($(progress)+1))))` \
+-echo "\033[41;1m   $@ ${progress}$\/${totalSteps} \033[0m\033]2;Building $@ ${progress}$\/${totalSteps}\007"
++printf "\033[41;1m   $@ ${progress}$\/${totalSteps} \033[0m\033]2;Building $@ ${progress}$\/${totalSteps}\007"
+ 
+ 
+ ifeq ($(TCONFIG_OPTIMIZE_SIZE),y)
+@@ -185,7 +185,7 @@
+ export CFLAG_OPTIMIZE = -Os
+ endif
+ 
+-obj-$(NEED_SAMBA3) += samba3
++obj-$(NEED_SAMBA3) += samba4
+ 
+ ifeq ($(CONFIG_BCMWL6),y)
+ ifeq ($(TCONFIG_UFSD),y)
+@@ -1168,7 +1168,7 @@
+ 	@rm -f dhcpv6/Makefile dhcpv6/stamp-h1
+ 
+ p910nd:
+-samba3:
++samba4:
+ 
+ nvram: shared
+ 
+@@ -1911,7 +1911,7 @@
+ 
+ php/stamp-h1: pcre zlib libiconv sqlite libxml2 libpng jpeg libcurl
+ 	$(call patch_files,php)
+-	cd php && CC=$(CC) CXX=$(ARCH)-g++ AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) \
++	cd php && CC=$(CC) CXX=$(CROSS_COMPILE)g++ AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) \
+ 	CFLAGS="-Os -Wall -I$(TOP)/zlib -I$(TOP)/libxml2/include/libxml -I$(TOP)/libxml2/include -I$(TOP)/pcre -I$(TOP)/libiconv/include \
+ 		-I$(TOP)/libpng/staged/usr/include -I$(TOP)/libcurl/staged/usr/include" \
+ 	LDFLAGS="-L$(TOP)/pcre/.libs -L$(TOP)/sqlite/.libs -L$(TOP)/zlib -L$(TOP)/libxml2/.libs -L$(TOP)/libiconv/lib/.libs \
+@@ -2393,6 +2393,7 @@
+ libnfsidmap-install:
+ 	install -d $(TOP)/libnfsidmap/staged
+ 	$(MAKE) -C libnfsidmap DESTDIR=$(TOP)/libnfsidmap/staged install
++	@rm -f libnfsidmap/staged/usr/lib/libnfsidmap.la
+ 
+ portmap/stamp-h1:
+ 	$(call patch_files,portmap)
+@@ -2396,8 +2396,7 @@
+ 
+ portmap/stamp-h1:
+ 	$(call patch_files,portmap)
+-	cd portmap \
+-	$(MAKE) -C portmap CC=$(CC) AR=$(AR) LD=$(LD) RANLIB=$(RANLIB)
++	cd portmap
+ 	touch portmap/stamp-h1
+ 
+ portmap: portmap/stamp-h1
+@@ -2502,7 +2501,6 @@
+ 
+ sd-idle/stamp-h1:
+ 	@$(SEP)
+-	cd sd-idle \
+ 	CFLAGS="-Os -Wall --host=$(HOST) --target=$(HOST) $(EXTRACFLAGS)" \
+ 	$(MAKE) -C sd-idle
+ 	chmod 0755 sd-idle/sd-idle
+@@ -2803,6 +2801,32 @@
+ 	-@rm -rf iperf/Makefile iperf/stamp-h1
+ 	$(call unpatch_files,iperf)
+ 
++
++libtirpc/stamp-h1:
++	cd $(TOP)/libtirpc && \
++	CFLAGS="$(CFLAG_OPTIMIZE) -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
++	CPPFLAGS="$(CFLAG_OPTIMIZE) -Wall -ffunction-sections -fdata-sections -fPIC" \
++	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
++	$(CONFIGURE) --prefix=/usr --host=mipsel-linux --sysconfdir=/etc --disable-static --disable-gssapi
++	touch libtirpc/stamp-h1
++
++libtirpc: libtirpc/stamp-h1
++	@$(SEP)
++	@$(MAKE) -C libtirpc $(PARALLEL_BUILD)
++
++libtirpc-install:
++	install -d $(INSTALLDIR)/libtirpc/usr/lib/
++	install libtirpc/src/.libs/libtirpc.so.3.0.0 $(INSTALLDIR)/libtirpc/usr/lib/libtirpc.so.3.0.0
++	$(STRIP) $(INSTALLDIR)/libtirpc/usr/lib/libtirpc.so.3.0.0
++	cd $(INSTALLDIR)/libtirpc/usr/lib/ && \
++		ln -sf libtirpc.so.3.0.0 libtirpc.so.3 && \
++		ln -sf libtirpc.so.3.0.0 libtirpc.so
++
++libtirpc-clean:
++	-@$(MAKE) -C libtirpc clean
++	-@rm -rf libtirpc/Makefile libtirpc/stamp-h1
++
++
+ #
+ # Generic rules
+ #

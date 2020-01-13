@@ -1,0 +1,19 @@
+*** /home/stephan/freshtomato-mips/release/src/router/miniupnpd/Makefile.linux	2019-11-02 16:38:49.469935988 +0100
+--- /home/stephan/Dokumente/freshtomato-mips/Makefile.linux	2019-09-20 20:19:41.339996836 +0200
+***************
+*** 162,168 ****
+  
+  # OpenWrt packager disables https server for IGD v2 and hardcodes libuuid support
+  ifeq ($(TARGET_OPENWRT),)
+! LDLIBS += $(shell $(PKG_CONFIG) --static --libs-only-l libssl)
+  
+  TEST := $(shell $(PKG_CONFIG) --exists uuid && echo 1)
+  ifeq ($(TEST),1)
+--- 162,168 ----
+  
+  # OpenWrt packager disables https server for IGD v2 and hardcodes libuuid support
+  ifeq ($(TARGET_OPENWRT),)
+! #LDLIBS += $(shell $(PKG_CONFIG) --static --libs-only-l libssl)
+  
+  TEST := $(shell $(PKG_CONFIG) --exists uuid && echo 1)
+  ifeq ($(TEST),1)
