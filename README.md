@@ -1,8 +1,9 @@
 # Artix_Freshtomato_Samba4
-Samba4 for FreshTomato-mips
+How to build Samba4 for FreshTomato-mips
 
 
 Steps needed:
+
 1.) Download source of samba-4.9.16 and extract it into a folder in your home directory.
 
 2.) Create folder for samba4.x in your local freshtomato-mips repo (e.g./release/src/router/samba4)
