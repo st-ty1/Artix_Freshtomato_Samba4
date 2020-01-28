@@ -8,7 +8,7 @@ Steps needed:
 
 2.) Download this repo into a second folder in your home directory. Depending on you want compile for MIPSEL- or for ARM-router, also copy Makefile_RT-AC.patch or Makefile_arm.patch, common.mak.patch, genconfig.sh.patch, configure.ac_tor.patch and mksquashfs.c.patch from my github repo Artix_FreshTomato (https://github.com/st-ty1/Artix_FreshTomato) into this folder. 
 
-3.) Download sources of libtirpc_1.1.4 and extract them into a folder in your home directory.
+3.) Download sources of libtirpc_1.1.4 and extract them into a third folder in your home directory.
 
 4.) Start shell script build_ft-mips_samba.sh in folder of this repo.
 
@@ -22,7 +22,7 @@ Rem: To build Freshtomato(mips) with samba4 in Artix,
   - Two of "samba3" passages in release/src/router/Makefile has to be replaced by "samba4" passages.
   - release/src/router/nettle/desdata.stamp has to be removed.
   
-All these steps above are incorporated in shell script build_ft-mips_samba.sh .
+All these steps above are incorporated in shell script build_ft-mips_samba.sh.
 
 BR
 st-ty1
