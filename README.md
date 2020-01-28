@@ -6,7 +6,7 @@ Steps needed:
 
 1.) Download source of samba-4.9.16 and extract it into a first folder in your home directory.
 
-2.) Download this repo into a second folder in your home directory 
+2.) Download this repo into a second folder in your home directory. Depending on you want compile for MIPSEL- or for ARM-router, also copy Makefile_RT-AC.patch or Makefile_arm.patch, common.mak.patch, genconfig.sh.patch, configure.ac_tor.patch and mksquashfs.c.patch from my github repo Artix_FreshTomato (https://github.com/st-ty1/Artix_FreshTomato) into this folder. 
 
 3.) Download sources of libtirpc_1.1.4 and extract them into a folder in your home directory.
 
