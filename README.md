@@ -20,6 +20,8 @@ Rem: To build Freshtomato(mips) with samba4 in Artix,
   - As samba4 depends on libtirpc targets for libtirpc have to be implemented in release/src/router/Makefile. 
   - Two of "samba3" passages in release/src/router/Makefile has to be replaced by "samba4" passages.
   - release/src/router/nettle/desdata.stamp has to be removed.
+  - Makefile in release/src/router/samba has to be replaced.
+    Remember that install-target in this Makefile is not optimized, also libfoo.pl has to be adapted because of newer and more libraries to be striped compared to samba-3.6.
   
    All these steps above are incorporated in shell script build_ft-mips_samba.sh.
 
