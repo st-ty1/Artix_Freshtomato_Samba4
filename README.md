@@ -15,13 +15,13 @@ Steps needed:
 
 Rem: To build Freshtomato(mips) with samba4 in Artix,
   - the sym-link to python in /usr/bin has to be changed from python3 to python2. 
-  - also the FT-source files release/src/router/common.mak, release/src/router/miniupnpd/genconfig.sh, release/src/router/tor/configure.ac and release/src-rt-6.x/linux/linux-2.6/scripts/squashfs/mksquashfs.c (release/src-rt/linux/linux-2.6/scripts/squashfs/mksquashfs.c for mips-RT-N and mips-RT builds) have to be patched.
-  - release/src/router/Makefile need some Artix-related patches as documented in https://github.com/st-ty1/Artix_FreshTomato/blob/master/modification_FT_sources.txt.
-  - As samba4 depends on libtirpc targets for libtirpc have to be implemented in release/src/router/Makefile. 
-  - Two of "samba3" passages in release/src/router/Makefile has to be replaced by "samba4" passages.
+  - release/src/router/Makefile need modifications:
+      o some Artix-related patches are needed as documented in https://github.com/st-ty1/Artix_FreshTomato/blob/master/modification_FT_sources.txt.
+      o as samba4 depends on libtirpc targets for libtirpc have to be implemented in release/src/router/Makefile. 
+      o two of "samba3" passages in release/src/router/Makefile has to be replaced by "samba4" passages.
   - release/src/router/nettle/desdata.stamp has to be removed.
   - Makefile in release/src/router/samba has to be replaced.
-    Remember that install-target in this Makefile is not optimized, also libfoo.pl has to be adapted because of newer and more libraries to be striped compared to samba-3.6.
+    Remember that install-target of this Makefile is not optimized yet, i.e. also libfoo.pl has to be adapted because of newer and more libraries to be striped compared to samba-3.6.
   
    All these steps above are incorporated in shell script build_ft-mips_samba.sh.
 
