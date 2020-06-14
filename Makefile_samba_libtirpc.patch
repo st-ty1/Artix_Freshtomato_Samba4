@@ -14,7 +14,7 @@
  p910nd:
  
 -samba3: $(if $(TCONFIG_NGINX),libiconv,)
-+samba4: $(if $(TCONFIG_NGINX),libiconv,)
++samba4: $(if $(TCONFIG_NGINX),libiconv,) libtirpc
  
  nvram: shared
  
