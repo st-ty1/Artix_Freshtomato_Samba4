@@ -26,7 +26,7 @@ git reset --hard
 git checkout mips-RT-AC
 
 ## Arch-Linux-patches for all builds
-ppatch -i $FT_PATCHES_DIR/common.mak.patch $FT_REPO_DIR/release/src/router/common.mak
+patch -i $FT_PATCHES_DIR/common.mak.patch $FT_REPO_DIR/release/src/router/common.mak
 ### error: "uuid/uuid.h: No such file or directory"
 patch -i $FT_PATCHES_DIR/genconfig.sh.patch $FT_REPO_DIR/release/src/router/miniupnpd/genconfig.sh
 patch -i $FT_PATCHES_DIR/Makefile.patch $FT_REPO_DIR/release/src/router/Makefile
