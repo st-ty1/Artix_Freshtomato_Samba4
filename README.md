@@ -1,6 +1,6 @@
 # Artix_Freshtomato-mips_Samba4
 How to build Samba4 for FreshTomato-mips
-(samba.4.9 is the lastest samba4-version, which can be compiled by the mipsel-toolchain, used in Freshtomato.)
+(samba.4.9 is the lastest samba4-version, which can be compiled by the mipsel-toolchain, used in Freshtomato. As with samba 4.10 gnutls is needed which itself can only be built with obligatory TLS (thread-local storage)-support, but actual mips-uClibc toolchains do not provided thread local support.)
 
 Steps needed:
 
