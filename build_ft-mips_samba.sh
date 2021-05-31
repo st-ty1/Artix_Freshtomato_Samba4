@@ -1,7 +1,7 @@
 #! /bin/sh
 
 ## path to Artix-patch folder for building FT
-FT_PATCHES_DIR=$HOME/Documents/freshtomato-mips
+FT_PATCHES_DIR=$HOME/Artix_FreshTomato
 
 ## path to the FT-repo folder
 FT_REPO_DIR=$HOME/freshtomato-mips
